@@ -22,7 +22,7 @@
     ></script>
     <script>
       $(document).ready(function () {
-        $("#exampleInputEmail1").keydown(function () {
+        $("#exampleInputEmail1").keydown(function(){
           let obj = {
             url: "/check-email",
             data: {
@@ -51,33 +51,34 @@
     </script>
   </head>
   <body>
-    <form action="/login1" method="post">
-      <div class="container">
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label"
-            >Email address</label
-          >
-          <input
-            type="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            name="txtEmail"
-          />
-          <span id="txtErr">*</span>
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input
-            type="password"
-            class="form-control"
-            id="exampleInputPassword1"
-            name="txtPass"
-          />
-        </div>
-        <input type="submit" id="btn1" value="LOGIN" class="btn btn-danger" />
-        <p class="mt-3">If already registered, <a href="/signin">Sign In</a></p>
+    
+    <div class="container-fluid">
+      <div class="row justify-content-center align-items-center" style="height: 100vh;">
+          <div class="col-md-4">
+              <h5 class="text-center mb-4">LOGIN HERE</h5>
+  
+              <div class="card">
+                  <div class="card-body">
+                      <form action="/login1" method="post">
+                          <div class="container">
+                              <div class="mb-3">
+                                  <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="txtEmail" />
+                                  <span id="txtErr">*</span>
+                              </div>
+                              <div class="mb-3">
+                                  <label for="exampleInputPassword1" class="form-label">Password</label>
+                                  <input type="password" class="form-control" id="exampleInputPassword1" name="txtPass" />
+                              </div>
+                              <input type="submit" id="btn1" value="LOGIN" class="btn btn-danger" />
+                              <p class="mt-3">If already registered, <a href="/signin">Sign In</a></p>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
       </div>
-    </form>
+  </div>
+  
   </body>
 </html>
