@@ -1,6 +1,7 @@
 const express = require("express");
 const app=express();
 const mysql2= require("mysql2");
+const fileuploader = require("express-fileupload");
 app.use(express.static("public"));
 app.listen("3000" , function()
 {
@@ -39,7 +40,7 @@ app.get("/Homiee" , function(req , resp)
 app.get("/loginsignup" , function(req , resp)
 {
     resp.contentType("text/html");
-    let filepath = process.cwd()+"/public/LOGIN/login/signup.html"
+    let filepath = process.cwd()+"/public/LOGIN/signup.html"
     resp.sendFile(filepath);
 })
 //connecting to database 
@@ -47,7 +48,8 @@ const configobj={
     host:"127.0.0.1",
     user:"root",
     password:"Saloni##2004",
-    database:"loginsign"
+    database:"loginsign",
+    dateStrings:true
 }
 const mysql = mysql2.createConnection(configobj);
 mysql.connect(function(err)
@@ -96,4 +98,44 @@ app.get("/check-email", function (req, resp) {
       }
     );
   });
+
+app.use(fileuploader());
+
+app.post("/form-register", function (req, resp) {
+//     create table register(picname varchar(255) ,Name varchar(255) ,  Fname varchar(255) , Mname varchar(255) , location varchar(255) , 
+// sex varchar(255) , dob date  , religion varchar(255)  ,marriage varchar(255) , manglik varchar(255) , prof varchar(255) , quali varchar(255)); 
+    const  name = req.body.inputname;
+    const fname = req.body.inputFName;
+    const mname = req.body.inputMName;
+    const loc = req.body.location;
+    const sex = req.body.sex;
+    const dobb = req.body.dob;
+    const reli = req.body.religion;
+    const marr = req.body.marriagestat;
+    const mang= req.body.manglik;
+    const profesion = req.body.proffession;
+    const qualific = req.body.qualification;
+    let filename;
+    if (req.files == null) {
+      filename = "nopic.jpg";
+    } else {
+      filename = req.files.ppic.name;
+      let path = process.cwd() + "/public/uploads/" + filename;
+      req.files.ppic.mv(path);
+    }
+    req.body.ppic = filename;
+    // resp.send(req.body);
+    mysql.query(
+      "insert into register values(?,?,?,?,?,?,?,?,?,?,?,?)",
+      [filename , name, fname, mname, loc , sex , dobb , reli , marr ,mang , profesion,  qualific],
+      function (err) {
+        if (err == null) {
+          resp.send("successfully record data");
+        } else {
+          resp.send(err.message);
+        }
+      }
+    );
+  });
+
   

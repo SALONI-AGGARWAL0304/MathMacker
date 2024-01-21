@@ -35,8 +35,10 @@
               //   alert(resp);
               $("#txtErr").html(resp);
               if (resp === "Not Available")
-                $("#txtErr").addClass("not-ok").removeClass("ok");
-              else $("#txtErr").removeClass("not-ok").addClass("ok");
+                {$("#txtErr").addClass("not-ok").removeClass("ok");
+                $("#btn1").prop("disabled" , true);}
+              else {$("#txtErr").removeClass("not-ok").addClass("ok");
+              $("#btn1").prop("disabled" , false);}
             })
             .fail(function (err) {
               //   console.error(err); // Log the error object to the console
@@ -71,7 +73,7 @@
             name="txtPass"
           />
         </div>
-        <input type="submit" value="LOGIN" class="btn btn-danger" />
+        <input type="submit" id="btn1" value="LOGIN" class="btn btn-danger" />
       </div>
     </form>
   </body>

@@ -20,59 +20,233 @@
       integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
       crossorigin="anonymous"
     ></script>
+    <script>
+      function doShowPrev(refFile,refImg)
+      {
+          const [file] = refFile.files
+          if (file) {
+            refImg.src = URL.createObjectURL(file)
+          }
+      }
+      </script>
+    <script>
+      $(document).ready(function () {
+        // Function to check if all required fields are filled
+        function checkFormValidity() {
+          var isValid = true;
+
+          // Check if the image field is empty
+          if ($("#picupload").val() == "") {
+            $("#errImg").html("This value is required");
+            isValid = false;
+          } else {
+            $("#errImg").html("");
+          }
+          // Check if the inputname field is empty
+          if ($("#inputname").val() == "") {
+            $("#errName").html("This value is required");
+            isValid = false;
+          } else {
+            $("#errName").html("");
+          }
+
+          // Check if the inputFName field is empty
+          if ($("#inputFName").val() == "") {
+            $("#errFName").html("This value is required");
+            isValid = false;
+          } else {
+            $("#errFName").html("");
+          }
+          // Check if the inputMName field is empty
+          if ($("#inputMName").val() == "") {
+            $("#errMName").html("This value is required");
+            isValid = false;
+          } else {
+            $("#errMName").html("");
+          }
+          // Check if the location field is empty
+          if ($("#location").val() == "") {
+            $("#errLoc").html("This value is required");
+            isValid = false;
+          } else {
+            $("#errLoc").html("");
+          }
+          // Check if the sex field is empty
+          if ($("#sex").val() == "") {
+            $("#errSex").html("This value is required");
+            isValid = false;
+          } else {
+            $("#errSex").html("");
+          }
+          // Check if the date of birth field is empty
+          if ($("#dob").val() == "") {
+            $("#errDob").html("This value is required");
+            isValid = false;
+          } else {
+            $("#errDob").html("");
+          }
+           // Check if the marriage status field is empty
+           if ($("#marriagestat").val() == "") {
+            $("#errMarr").html("This value is required");
+            isValid = false;
+          } else {
+            $("#errMarr").html("");
+          }
+           // Check if the Religion field is empty
+           if ($("#religion").val() == "") {
+            $("#errRel").html("This value is required");
+            isValid = false;
+          } else {
+            $("#errRel").html("");
+          }
+           // Check if the proffesion field is empty
+           if ($("#proffession").val() == "") {
+            $("#errProf").html("This value is required");
+            isValid = false;
+          } else {
+            $("#errProf").html("");
+          }
+           // Check if the qualification field is empty
+           if ($("#qualification").val() == "") {
+            $("#errQual").html("This value is required");
+            isValid = false;
+          } else {
+            $("#errQual").html("");
+          }
+          // Enable or disable the button based on form validity
+          $("#btncheck").prop("disabled", !isValid);
+
+          return isValid;
+        }
+
+        // Blur event for inputname field
+        $("#inputname").blur(function () {
+          checkFormValidity();
+        });
+
+        // Blur event for inputFName field
+        $("#inputFName").blur(function () {
+          checkFormValidity();
+        });
+        // Blur event for inputMName field
+        $("#inputMName").blur(function () {
+          checkFormValidity();
+        });
+        // Blur event for location field
+        $("#location").blur(function () {
+          checkFormValidity();
+        });
+        // Blur event for sex field
+        $("#sex").blur(function () {
+          checkFormValidity();
+        });
+        // Blur event for date of birth field
+        $("#dob").blur(function () {
+          checkFormValidity();
+        });
+         // Blur event for marriage status field
+         $("#marriagestat").blur(function () {
+          checkFormValidity();
+        });
+        // Blur event for religion field
+        $("#religion").blur(function () {
+          checkFormValidity();
+        });
+        // Blur event for profeesion field
+        $("#proffession").blur(function () {
+          checkFormValidity();
+        });
+        // Blur event for qualification field
+        $("#qualification").blur(function () {
+          checkFormValidity();
+        });
+        // Blur event for image field
+        $("#picupload").blur(function () {
+          checkFormValidity();
+        });
+        // Click event for the "Create profile" button
+        $("#btncheck").click(function () {
+          if (checkFormValidity()) {
+            // Submit the form if all fields are filled
+            $("form").submit();
+          } else {
+            // Optionally, display a message or take other actions
+            console.log("Please fill in all required fields.");
+          }
+        });
+      });
+    </script>
   </head>
   <body>
-    <form class="row g-3">
-      <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">Email</label>
-        <input type="email" class="form-control" id="inputEmail4" />
-      </div>
-      <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">Password</label>
-        <input type="password" class="form-control" id="inputPassword4" />
-      </div>
-      <div class="col-12">
-        <label for="inputAddress" class="form-label">Address</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputAddress"
-          placeholder="1234 Main St"
-        />
-      </div>
-      <div class="col-12">
-        <label for="inputAddress2" class="form-label">Address 2</label>
-        <input
-          type="text"
-          class="form-control"
-          id="inputAddress2"
-          placeholder="Apartment, studio, or floor"
-        />
-      </div>
-      <div class="col-md-6">
-        <label for="inputCity" class="form-label">City</label>
-        <input type="text" class="form-control" id="inputCity" />
-      </div>
-      <div class="col-md-4">
-        <label for="inputState" class="form-label">State</label>
-        <select id="inputState" class="form-select">
-          <option selected>Choose...</option>
-          <option>...</option>
-        </select>
-      </div>
-      <div class="col-md-2">
-        <label for="inputZip" class="form-label">Zip</label>
-        <input type="text" class="form-control" id="inputZip" />
-      </div>
-      <div class="col-12">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" id="gridCheck" />
-          <label class="form-check-label" for="gridCheck"> Check me out </label>
+    <div class="container">
+      <form class="row g-3" action="form-register" method="post" enctype="multipart/form-data">
+        <center>
+          <div class="col-md-12">
+            <label for="picupload" class="form-label">Upload photo</label><span id="errImg">*</span><br />
+            <input type="file" name="ppic" id="picupload" class="form-label"  onchange="doShowPrev(this , prev);"/>
+            <img src="" alt="" id="prev" height="100" width="100">
+          </div>
+        </center>
+        <div class="col-md-4">
+          <label for="inputname" class="form-label">Name</label>
+          <span id="errName">*</span>
+          <input type="text" class="form-control" id="inputname" name="inputname"/>
         </div>
-      </div>
-      <div class="col-12">
-        <button type="submit" class="btn btn-primary">Sign in</button>
-      </div>
-    </form>
+        <div class="col-md-4">
+          <label for="inputFName" class="form-label">Father Name</label
+          ><span id="errFName">*</span>
+          <input type="text" class="form-control" id="inputFName" name="inputFName" />
+        </div>
+        <div class="col-md-4">
+          <label for="inputMName" class="form-label"> Mother Name</label
+          ><span id="errMName">*</span>
+          <input type="text" class="form-control" id="inputMName" name="inputMName" />
+        </div>
+        <div class="col-md-4">
+          <label for="location" class="form-label">Location</label
+          ><span id="errLoc">*</span>
+          <input type="text" class="form-control" id="location" name="location" />
+        </div>
+        <div class="col-md-4">
+          <label for="sex" class="form-label">Sex</label
+          ><span id="errSex">*</span>
+          <select id="sex" class="form-select" name="sex">
+            <option>select</option>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="dob" class="form-label">date of birth</label
+          ><span id="errDob">*</span>
+          <input type="date" class="form-control" id="dob" name="dob" />
+        </div>
+        <div class="col-md-4">
+          <label for="religion" class="form-label">Religion</label><span id="errRel">*</span>
+          <input type="text" class="form-control" id="religion" name="religion" />
+        </div>
+        <div class="col-md-4">
+          <label for="marriagestat" class="form-label">Marriage status</label><span id="errMarr">*</span>
+          <input type="text" class="form-control" id="marriagestat" name="marriagestat" />
+        </div>
+        <div class="col-md-4">
+          <label for="manglik" class="form-label">Manglik status</label>
+          <input type="text" class="form-control" id="manglik" name="manglik" />
+        </div>
+        <div class="col-md-6">
+          <label for="proffession" class="form-label">Proffession</label><span id="errProf">*</span>
+          <textarea id="proffession" name="proffession" class="form-control"></textarea>
+        </div>
+        <div class="col-md-6">
+          <label for="qualification" class="form-label">Qualification</label><span id="errQual">*</span>
+          <textarea id="qualification" name="qualification" class="form-control"></textarea>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-danger" id="btncheck">
+            Create profile
+          </button>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
