@@ -20,33 +20,81 @@
     integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
     crossorigin="anonymous"
   ></script>
+  <script>
+    $(document).ready(function () {
+      // Function to check if all required fields are filled
+      function checkFormValidity() {
+        var isValid = true;
+        // Check if the image field is empty
+        if ($("#exampleInputEmail1").val() == "") {
+          $("#errMail").html("This value is required");
+          isValid = false;
+        } else {
+          $("#errMail").html("");
+        }
+        // Check if the inputname field is empty
+        if ($("#exampleInputPassword1").val() == "") {
+          $("#errPass").html("This value is required");
+          isValid = false;
+        } else {
+          $("#errPass").html("");
+        }
+
+        // Enable or disable the button based on form validity
+        $("#btn1").prop("disabled", !isValid);
+
+        return isValid;
+      }
+
+      // Blur event for inputname field
+      $("#exampleInputEmail1").blur(function () {
+        checkFormValidity();
+      });
+
+      // Blur event for inputFName field
+      $("#exampleInputPassword1").blur(function () {
+        checkFormValidity();
+      });
+      
+      // Click event for the "Create profile" button
+      $("#btn1").click(function () {
+        if (checkFormValidity()) {
+          // Submit the form if all fields are filled
+          $("form").submit();
+        } else {
+          // Optionally, display a message or take other actions
+          console.log("Please fill in all required fields.");
+        }
+      });
+    });
+  </script>
+  <script>
+
+  </script>
 </head>
 <body>
-    <form action="/signin1" method="post">
-        <div class="container">
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label"
-              >Email address</label
-            >
-            <input
-              type="email"
-              class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-              name="txtEmail"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              id="exampleInputPassword1"
-              name="txtPass"
-            />
-          </div>
-          <input type="submit" id="btn1" value="SignUp" class="btn btn-danger" />
-       
-      </form>
+  <div class="row justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-md-4">
+        <h5 class="text-center mb-4">SIGNIN HERE</h5>
+
+        <div class="card">
+            <div class="card-body">
+                <form action="/signin1" method="post">
+                    <div class="container">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Email address</label><span id="errMail">*</span>
+                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="txtEmail" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Password</label><span id="errPass">*</span>
+                            <input type="password" class="form-control" id="exampleInputPassword1" name="txtPass" />
+                        </div>
+                        <input type="submit" id="btn1" value="SIGNIN" class="btn btn-danger" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

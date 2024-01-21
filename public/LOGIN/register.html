@@ -178,75 +178,81 @@
     </script>
   </head>
   <body>
-    <div class="container">
-      <form class="row g-3" action="form-register" method="post" enctype="multipart/form-data">
-        <center>
-          <div class="col-md-12">
-            <label for="picupload" class="form-label">Upload photo</label><span id="errImg">*</span><br />
-            <input type="file" name="ppic" id="picupload" class="form-label"  onchange="doShowPrev(this , prev);"/>
-            <img src="" alt="" id="prev" height="100" width="100">
-          </div>
-        </center>
-        <div class="col-md-4">
-          <label for="inputname" class="form-label">Name</label>
-          <span id="errName">*</span>
-          <input type="text" class="form-control" id="inputname" name="inputname"/>
+  <div class="row justify-content-center align-items-center" style="height: 100vh;">
+    <div class="col-md-9">
+        <h5 class="text-center mb-4">Register HERE</h5>
+
+        <div class="card">
+            <div class="card-body">
+              <form class="row g-3" action="form-register" method="post" enctype="multipart/form-data">
+                <center>
+                    <div class="col-md-12">
+                        <label for="picupload" class="form-label">Upload photo</label><span id="errImg">*</span><br />
+                        <input type="file" name="ppic" id="picupload" class="form-label" onchange="doShowPrev(this, prev);"/>
+                        <img src="" alt="" id="prev" height="100" width="100">
+                    </div>
+                </center>
+                <div class="col-md-4">
+                  <label for="inputname" class="form-label">Name</label>
+                  <span id="errName">*</span>
+                  <input type="text" class="form-control" id="inputname" name="inputname"/>
+                </div>
+                <div class="col-md-4">
+                  <label for="inputFName" class="form-label">Father Name</label
+                  ><span id="errFName">*</span>
+                  <input type="text" class="form-control" id="inputFName" name="inputFName" />
+                </div>
+                <div class="col-md-4">
+                  <label for="inputMName" class="form-label"> Mother Name</label
+                  ><span id="errMName">*</span>
+                  <input type="text" class="form-control" id="inputMName" name="inputMName" />
+                </div>
+                <div class="col-md-4">
+                  <label for="location" class="form-label">Location</label
+                  ><span id="errLoc">*</span>
+                  <input type="text" class="form-control" id="location" name="location" />
+                </div>
+                <div class="col-md-4">
+                  <label for="sex" class="form-label">Sex</label
+                  ><span id="errSex">*</span>
+                  <select id="sex" class="form-select" name="sex">
+                    <option>select</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="dob" class="form-label">date of birth</label
+                  ><span id="errDob">*</span>
+                  <input type="date" class="form-control" id="dob" name="dob" />
+                </div>
+                <div class="col-md-4">
+                  <label for="religion" class="form-label">Religion</label><span id="errRel">*</span>
+                  <input type="text" class="form-control" id="religion" name="religion" />
+                </div>
+                <div class="col-md-4">
+                  <label for="marriagestat" class="form-label">Marriage status</label><span id="errMarr">*</span>
+                  <input type="text" class="form-control" id="marriagestat" name="marriagestat" />
+                </div>
+                <div class="col-md-4">
+                  <label for="manglik" class="form-label">Manglik status</label>
+                  <input type="text" class="form-control" id="manglik" name="manglik" />
+                </div>
+                <div class="col-md-6">
+                  <label for="proffession" class="form-label">Proffession</label><span id="errProf">*</span>
+                  <textarea id="proffession" name="proffession" class="form-control"></textarea>
+                </div>
+                <div class="col-md-6">
+                  <label for="qualification" class="form-label">Qualification</label><span id="errQual">*</span>
+                  <textarea id="qualification" name="qualification" class="form-control"></textarea>
+                </div>
+                <div class="col-12">
+                    <button type="submit" class="btn btn-danger" id="btncheck">Create profile</button>
+                </div>
+            </form>
+            </div>
         </div>
-        <div class="col-md-4">
-          <label for="inputFName" class="form-label">Father Name</label
-          ><span id="errFName">*</span>
-          <input type="text" class="form-control" id="inputFName" name="inputFName" />
-        </div>
-        <div class="col-md-4">
-          <label for="inputMName" class="form-label"> Mother Name</label
-          ><span id="errMName">*</span>
-          <input type="text" class="form-control" id="inputMName" name="inputMName" />
-        </div>
-        <div class="col-md-4">
-          <label for="location" class="form-label">Location</label
-          ><span id="errLoc">*</span>
-          <input type="text" class="form-control" id="location" name="location" />
-        </div>
-        <div class="col-md-4">
-          <label for="sex" class="form-label">Sex</label
-          ><span id="errSex">*</span>
-          <select id="sex" class="form-select" name="sex">
-            <option>select</option>
-            <option>Male</option>
-            <option>Female</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <label for="dob" class="form-label">date of birth</label
-          ><span id="errDob">*</span>
-          <input type="date" class="form-control" id="dob" name="dob" />
-        </div>
-        <div class="col-md-4">
-          <label for="religion" class="form-label">Religion</label><span id="errRel">*</span>
-          <input type="text" class="form-control" id="religion" name="religion" />
-        </div>
-        <div class="col-md-4">
-          <label for="marriagestat" class="form-label">Marriage status</label><span id="errMarr">*</span>
-          <input type="text" class="form-control" id="marriagestat" name="marriagestat" />
-        </div>
-        <div class="col-md-4">
-          <label for="manglik" class="form-label">Manglik status</label>
-          <input type="text" class="form-control" id="manglik" name="manglik" />
-        </div>
-        <div class="col-md-6">
-          <label for="proffession" class="form-label">Proffession</label><span id="errProf">*</span>
-          <textarea id="proffession" name="proffession" class="form-control"></textarea>
-        </div>
-        <div class="col-md-6">
-          <label for="qualification" class="form-label">Qualification</label><span id="errQual">*</span>
-          <textarea id="qualification" name="qualification" class="form-control"></textarea>
-        </div>
-        <div class="col-12">
-          <button type="submit" class="btn btn-danger" id="btncheck">
-            Create profile
-          </button>
-        </div>
-      </form>
     </div>
+</div>
   </body>
 </html>
