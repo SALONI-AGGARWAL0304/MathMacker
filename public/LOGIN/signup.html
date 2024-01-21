@@ -34,11 +34,13 @@
               //   console.log(resp); // Log the response to the console
               //   alert(resp);
               $("#txtErr").html(resp);
-              if (resp === "Not Available")
-                {$("#txtErr").addClass("not-ok").removeClass("ok");
-                $("#btn1").prop("disabled" , true);}
-              else {$("#txtErr").removeClass("not-ok").addClass("ok");
-              $("#btn1").prop("disabled" , false);}
+              if (resp === "Not Available") {
+                $("#txtErr").addClass("not-ok").removeClass("ok");
+                $("#btn1").prop("disabled", true);
+              } else {
+                $("#txtErr").removeClass("not-ok").addClass("ok");
+                $("#btn1").prop("disabled", false);
+              }
             })
             .fail(function (err) {
               //   console.error(err); // Log the error object to the console
@@ -74,6 +76,7 @@
           />
         </div>
         <input type="submit" id="btn1" value="LOGIN" class="btn btn-danger" />
+        <p class="mt-3">If already registered, <a href="/signin">Sign In</a></p>
       </div>
     </form>
   </body>
