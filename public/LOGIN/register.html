@@ -21,14 +21,13 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      function doShowPrev(refFile,refImg)
-      {
-          const [file] = refFile.files
-          if (file) {
-            refImg.src = URL.createObjectURL(file)
-          }
+      function doShowPrev(refFile, refImg) {
+        const [file] = refFile.files;
+        if (file) {
+          refImg.src = URL.createObjectURL(file);
+        }
       }
-      </script>
+    </script>
     <script>
       $(document).ready(function () {
         // Function to check if all required fields are filled
@@ -65,11 +64,20 @@
             $("#errMName").html("");
           }
           // Check if the location field is empty
-          if ($("#location").val() == "") {
-            $("#errLoc").html("This value is required");
+          if ($("#state").val() == "") {
+            $("#errstate").html("This value is required");
             isValid = false;
           } else {
-            $("#errLoc").html("");
+            $("#errstate").html("");
+          }
+          if($("#city").val()=="")
+          {
+            $("#errcity").html("This value is required");
+            isValid=false;
+          }
+          else
+          {
+            $("#errcity").html="";
           }
           // Check if the sex field is empty
           if ($("#sex").val() == "") {
@@ -85,33 +93,40 @@
           } else {
             $("#errDob").html("");
           }
-           // Check if the marriage status field is empty
-           if ($("#marriagestat").val() == "") {
+          // Check if the marriage status field is empty
+          if ($("#marriagestat").val() == "") {
             $("#errMarr").html("This value is required");
             isValid = false;
           } else {
             $("#errMarr").html("");
           }
-           // Check if the Religion field is empty
-           if ($("#religion").val() == "") {
+          // Check if the Religion field is empty
+          if ($("#religion").val() == "") {
             $("#errRel").html("This value is required");
             isValid = false;
           } else {
             $("#errRel").html("");
           }
-           // Check if the proffesion field is empty
-           if ($("#proffession").val() == "") {
+          // Check if the proffesion field is empty
+          if ($("#proffession").val() == "") {
             $("#errProf").html("This value is required");
             isValid = false;
           } else {
             $("#errProf").html("");
           }
-           // Check if the qualification field is empty
-           if ($("#qualification").val() == "") {
+          // Check if the qualification field is empty
+          if ($("#qualification").val() == "") {
             $("#errQual").html("This value is required");
             isValid = false;
           } else {
             $("#errQual").html("");
+          }
+          // Check if the height field is empty
+          if ($("#height").val() == "") {
+            $("#errheight").html("This value is required");
+            isValid = false;
+          } else {
+            $("#errheight").html("");
           }
           // Enable or disable the button based on form validity
           $("#btncheck").prop("disabled", !isValid);
@@ -133,7 +148,10 @@
           checkFormValidity();
         });
         // Blur event for location field
-        $("#location").blur(function () {
+        $("#state").blur(function () {
+          checkFormValidity();
+        });
+        $("#city").blur(function () {
           checkFormValidity();
         });
         // Blur event for sex field
@@ -144,8 +162,8 @@
         $("#dob").blur(function () {
           checkFormValidity();
         });
-         // Blur event for marriage status field
-         $("#marriagestat").blur(function () {
+        // Blur event for marriage status field
+        $("#marriagestat").blur(function () {
           checkFormValidity();
         });
         // Blur event for religion field
@@ -164,6 +182,10 @@
         $("#picupload").blur(function () {
           checkFormValidity();
         });
+        // Blur event for height field
+        $("#height").blur(function () {
+          checkFormValidity();
+        });
         // Click event for the "Create profile" button
         $("#btncheck").click(function () {
           if (checkFormValidity()) {
@@ -178,81 +200,232 @@
     </script>
   </head>
   <body>
-  <div class="row justify-content-center align-items-center" style="height: 100vh;">
-    <div class="col-md-9">
+    <div
+      class="row justify-content-center align-items-center"
+      style="height: 100vh"
+    >
+      <div class="col-md-9">
         <h5 class="text-center mb-4">Register HERE</h5>
 
         <div class="card">
-            <div class="card-body">
-              <form class="row g-3" action="form-register" method="post" enctype="multipart/form-data">
-                <center>
-                    <div class="col-md-12">
-                        <label for="picupload" class="form-label">Upload photo</label><span id="errImg">*</span><br />
-                        <input type="file" name="ppic" id="picupload" class="form-label" onchange="doShowPrev(this, prev);"/>
-                        <img src="" alt="" id="prev" height="100" width="100">
-                    </div>
-                </center>
-                <div class="col-md-4">
-                  <label for="inputname" class="form-label">Name</label>
-                  <span id="errName">*</span>
-                  <input type="text" class="form-control" id="inputname" name="inputname"/>
+          <div class="card-body">
+            <form
+              class="row g-3"
+              action="form-register"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <center>
+                <div class="col-md-12">
+                  <label for="picupload" class="form-label">Upload photo</label
+                  ><span id="errImg">*</span><br />
+                  <input
+                    type="file"
+                    name="ppic"
+                    id="picupload"
+                    class="form-label"
+                    onchange="doShowPrev(this, prev);"
+                  />
+                  <img src="" alt="" id="prev" height="100" width="100" />
                 </div>
-                <div class="col-md-4">
-                  <label for="inputFName" class="form-label">Father Name</label
-                  ><span id="errFName">*</span>
-                  <input type="text" class="form-control" id="inputFName" name="inputFName" />
-                </div>
-                <div class="col-md-4">
-                  <label for="inputMName" class="form-label"> Mother Name</label
-                  ><span id="errMName">*</span>
-                  <input type="text" class="form-control" id="inputMName" name="inputMName" />
-                </div>
-                <div class="col-md-4">
-                  <label for="location" class="form-label">Location</label
-                  ><span id="errLoc">*</span>
-                  <input type="text" class="form-control" id="location" name="location" />
-                </div>
-                <div class="col-md-4">
-                  <label for="sex" class="form-label">Sex</label
-                  ><span id="errSex">*</span>
-                  <select id="sex" class="form-select" name="sex">
-                    <option>select</option>
-                    <option>Male</option>
-                    <option>Female</option>
-                  </select>
-                </div>
-                <div class="col-md-4">
-                  <label for="dob" class="form-label">date of birth</label
-                  ><span id="errDob">*</span>
-                  <input type="date" class="form-control" id="dob" name="dob" />
-                </div>
-                <div class="col-md-4">
-                  <label for="religion" class="form-label">Religion</label><span id="errRel">*</span>
-                  <input type="text" class="form-control" id="religion" name="religion" />
-                </div>
-                <div class="col-md-4">
-                  <label for="marriagestat" class="form-label">Marriage status</label><span id="errMarr">*</span>
-                  <input type="text" class="form-control" id="marriagestat" name="marriagestat" />
-                </div>
-                <div class="col-md-4">
-                  <label for="manglik" class="form-label">Manglik status</label>
-                  <input type="text" class="form-control" id="manglik" name="manglik" />
-                </div>
-                <div class="col-md-6">
-                  <label for="proffession" class="form-label">Proffession</label><span id="errProf">*</span>
-                  <textarea id="proffession" name="proffession" class="form-control"></textarea>
-                </div>
-                <div class="col-md-6">
-                  <label for="qualification" class="form-label">Qualification</label><span id="errQual">*</span>
-                  <textarea id="qualification" name="qualification" class="form-control"></textarea>
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-danger" id="btncheck">Create profile</button>
-                </div>
+              </center>
+              <div class="col-md-4">
+                <label for="inputname" class="form-label">Name</label>
+                <span id="errName">*</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputname"
+                  name="inputname"
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="inputFName" class="form-label">Father Name</label
+                ><span id="errFName">*</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputFName"
+                  name="inputFName"
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="inputMName" class="form-label"> Mother Name</label
+                ><span id="errMName">*</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="inputMName"
+                  name="inputMName"
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="state" class="form-label">State</label
+                ><span id="errstate">*</span>
+                <!--- India states -->
+                <select id="state" name="state" class="form-select">
+                  <option value="">Select state</option>
+                  <option value="AN">Andaman and Nicobar Islands</option>
+                  <option value="AP">Andhra Pradesh</option>
+                  <option value="AR">Arunachal Pradesh</option>
+                  <option value="AS">Assam</option>
+                  <option value="BR">Bihar</option>
+                  <option value="CH">Chandigarh</option>
+                  <option value="CT">Chhattisgarh</option>
+                  <option value="DN">Dadra and Nagar Haveli</option>
+                  <option value="DD">Daman and Diu</option>
+                  <option value="DL">Delhi</option>
+                  <option value="GA">Goa</option>
+                  <option value="GJ">Gujarat</option>
+                  <option value="HR">Haryana</option>
+                  <option value="HP">Himachal Pradesh</option>
+                  <option value="JK">Jammu and Kashmir</option>
+                  <option value="JH">Jharkhand</option>
+                  <option value="KA">Karnataka</option>
+                  <option value="KL">Kerala</option>
+                  <option value="LA">Ladakh</option>
+                  <option value="LD">Lakshadweep</option>
+                  <option value="MP">Madhya Pradesh</option>
+                  <option value="MH">Maharashtra</option>
+                  <option value="MN">Manipur</option>
+                  <option value="ML">Meghalaya</option>
+                  <option value="MZ">Mizoram</option>
+                  <option value="NL">Nagaland</option>
+                  <option value="OR">Odisha</option>
+                  <option value="PY">Puducherry</option>
+                  <option value="PB">Punjab</option>
+                  <option value="RJ">Rajasthan</option>
+                  <option value="SK">Sikkim</option>
+                  <option value="TN">Tamil Nadu</option>
+                  <option value="TG">Telangana</option>
+                  <option value="TR">Tripura</option>
+                  <option value="UP">Uttar Pradesh</option>
+                  <option value="UT">Uttarakhand</option>
+                  <option value="WB">West Bengal</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="city" class="form-label">City</label
+                ><span id="errcity">*</span>
+                <input type="text" class="form-control" id="city" name="city" />
+              </div>
+              <div class="col-md-4">
+                <label for="sex" class="form-label">Sex</label
+                ><span id="errSex">*</span>
+                <select id="sex" class="form-select" name="sex">
+                  <option>select</option>
+                  <option>Male</option>
+                  <option>Female</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="dob" class="form-label">date of birth</label
+                ><span id="errDob">*</span>
+                <input type="date" class="form-control" id="dob" name="dob" />
+              </div>
+              <div class="col-md-4">
+                <label for="height" class="form-label">Height(in inches)</label
+                ><span id="errheight">*</span>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="height"
+                  name="height"
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="religion" class="form-label">Religion</label
+                ><span id="errRel">*</span>
+                <select name="religion" id="religion" class="form-select">
+                  <option value="" selected="selected" disabled="disabled">
+                    Select
+                  </option>
+                  <option value="African Traditional &amp; Diasporic">
+                    African Traditional &amp; Diasporic
+                  </option>
+                  <option value="Agnostic">Agnostic</option>
+                  <option value="Atheist">Atheist</option>
+                  <option value="Baha'i">Baha'i</option>
+                  <option value="Buddhism">Buddhism</option>
+                  <option value="Cao Dai">Cao Dai</option>
+                  <option value="Chinese traditional religion">
+                    Chinese traditional religion
+                  </option>
+                  <option value="Christianity">Christianity</option>
+                  <option value="Hinduism">Hinduism</option>
+                  <option value="Islam">Islam</option>
+                  <option value="Jainism">Jainism</option>
+                  <option value="Juche">Juche</option>
+                  <option value="Judaism">Judaism</option>
+                  <option value="Neo-Paganism">Neo-Paganism</option>
+                  <option value="Nonreligious">Nonreligious</option>
+                  <option value="Rastafarianism">Rastafarianism</option>
+                  <option value="Secular">Secular</option>
+                  <option value="Shinto">Shinto</option>
+                  <option value="Sikhism">Sikhism</option>
+                  <option value="Spiritism">Spiritism</option>
+                  <option value="Tenrikyo">Tenrikyo</option>
+                  <option value="Unitarian-Universalism">
+                    Unitarian-Universalism
+                  </option>
+                  <option value="Zoroastrianism">Zoroastrianism</option>
+                  <option value="primal-indigenous">primal-indigenous</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="marriagestat" class="form-label"
+                  >Marriage status</label
+                ><span id="errMarr">*</span>
+                <select
+                  name="marriagestat"
+                  id="marriagestat"
+                  class="form-select"
+                >
+                  <option value="">Select</option>
+                  <option value="Single">Single</option>
+                  <option value="Married">Married</option>
+                  <option value="Widowed">Widowed</option>
+                  <option value="Separated">Separated</option>
+                  <option value="Divorced">Divorced</option>
+                </select>
+              </div>
+              <div class="col-md-4">
+                <label for="manglik" class="form-label">Manglik status</label>
+                <select name="manglik" id="manglik" class="form-select">
+                  <option value="">Select</option>
+                  <option value="yes">YES</option>
+                  <option value="no">NO</option>
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label for="proffession" class="form-label">Proffession</label
+                ><span id="errProf">*</span>
+                <textarea
+                  id="proffession"
+                  name="proffession"
+                  class="form-control"
+                ></textarea>
+              </div>
+              <div class="col-md-6">
+                <label for="qualification" class="form-label"
+                  >Qualification</label
+                ><span id="errQual">*</span>
+                <textarea
+                  id="qualification"
+                  name="qualification"
+                  class="form-control"
+                ></textarea>
+              </div>
+              <div class="col-12">
+                <button type="submit" class="btn btn-danger" id="btncheck">
+                  Create profile
+                </button>
+              </div>
             </form>
-            </div>
+          </div>
         </div>
+      </div>
     </div>
-</div>
   </body>
 </html>

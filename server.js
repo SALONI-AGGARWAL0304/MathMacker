@@ -67,7 +67,7 @@ app.post("/login1", function (req, resp) {
         let filepath = process.cwd() + "/public/LOGIN/register.html";
         resp.sendFile(filepath);
       } else {
-        resp.send("error");
+        resp.send(err);
       }
     }
   );
@@ -90,14 +90,16 @@ app.get("/check-email", function (req, resp) {
 app.use(fileuploader());
 
 app.post("/form-register", function (req, resp) {
-  //     create table register(picname varchar(255) ,Name varchar(255) ,  Fname varchar(255) , Mname varchar(255) , location varchar(255) ,
-  // sex varchar(255) , dob date  , religion varchar(255)  ,marriage varchar(255) , manglik varchar(255) , prof varchar(255) , quali varchar(255));
+  // create table register1(picname varchar(255) ,Name varchar(255) ,  Fname varchar(255) , Mname varchar(255) , state varchar(255) , city varchar(255) ,
+  // sex varchar(255) , dob date  ,height int ,  religion varchar(255)  ,marriage varchar(255) , manglik varchar(255) , prof varchar(255) , quali varchar(255)); 
   const name = req.body.inputname;
   const fname = req.body.inputFName;
   const mname = req.body.inputMName;
-  const loc = req.body.location;
+  const state = req.body.state;
+  const city = req.body.city;
   const sex = req.body.sex;
   const dobb = req.body.dob;
+  const height = req.body.height;
   const reli = req.body.religion;
   const marr = req.body.marriagestat;
   const mang = req.body.manglik;
@@ -114,15 +116,17 @@ app.post("/form-register", function (req, resp) {
   req.body.ppic = filename;
   // resp.send(req.body);
   mysql.query(
-    "insert into register values(?,?,?,?,?,?,?,?,?,?,?,?)",
+    "insert into register1 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
     [
       filename,
       name,
       fname,
       mname,
-      loc,
+      state,
+      city,
       sex,
       dobb,
+      height,
       reli,
       marr,
       mang,
