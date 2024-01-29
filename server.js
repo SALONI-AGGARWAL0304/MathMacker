@@ -116,7 +116,7 @@ app.post("/form-register", function (req, resp) {
   req.body.ppic = filename;
   // resp.send(req.body);
   mysql.query(
-    "insert into register1 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    "insert into register3 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
     [
       filename,
       name,
@@ -170,3 +170,20 @@ app.post("/signin1", function (req, resp) {
     }
   );
 });
+app.get("/fetch-data" , function(req , resp)
+{
+  let Sex = req.query.sexx;
+  let Marriage =  req.query.martialstat;
+  let State = req.query.states;
+  let Religion = req.query.religions;
+  mysql.query("select *from register3 where sex=? and marriage=? and state=? and religion=?" , [Sex , Marriage , State , Religion] , function(err , resultJson)
+  {
+    if(err==null)
+    {
+      resp.send(resultJson);
+    }
+    else
+    resp.send(err.message);
+    //console.log(resultJson);
+  })
+})

@@ -26,6 +26,11 @@ crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="../style/search.css">
 <link href="https://fonts.googleapis.com/css?family=Dancing+Script|Pacifico&display=swap" rel="stylesheet">
+<script
+src="https://code.jquery.com/jquery-3.7.1.js"
+integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+crossorigin="anonymous"
+></script>
 <style>
   .nav-link-hover
   {
@@ -35,7 +40,129 @@ crossorigin="anonymous"></script>
     text-decoration: underline;
     color: white;
   }
+  .result-card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px; 
+  margin-bottom: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.result-card h3 {
+  font-size: 1.2rem;
+  margin-bottom: 2px;
+}
+
+.result-card p {
+  color: #555;
+  margin-bottom: 4px; 
+}
+
+#searchResultsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around; 
+}
+.no-results {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 20px 0;
+}
+/* Optional: Add more styling for responsiveness */
+@media (max-width: 768px) {
+  .result-card {
+    width: 48%; 
+  }
+}
+
+
 </style>
+<script>
+$(document).ready(function () {
+  $("#searchbtn").click(function () {
+    const sexx = $("#inputGender").val();
+    const martialstat = $("#inputStatus").val();
+    const states = $("#inputState").val();
+    const religions = $("#inputReligion").val();
+    let search_obj = {
+      url: "/fetch-data",
+      data: {
+        sexx: sexx,
+        martialstat: martialstat,
+        states: states,
+        religions: religions,
+      },
+    };
+    $.ajax(search_obj).done(
+      function (resp) {
+        // Clear previous results
+        $("#searchResultsContainer").html('');
+
+        if (resp.length === 0) {
+          // No results found
+          $("#searchResultsContainer").html('<p class="no-results">No results found.</p>');
+        } else {
+          // Append each result as a card
+          resp.forEach(function (result) {
+            // Create a card element
+            const card = $("<div>").addClass("result-card");
+            // Display name prominently in the card
+            card.append($("<h3>").text(result.Name)); // Modify 'Name' to match your actual column name
+
+            // Display all other information
+            card.append($("<p>").text("Father's Name: " + result.Fname));
+            card.append($("<p>").text("Mother's Name: " + result.Mname));
+            card.append($("<p>").text("State: " + result.state));
+            card.append($("<p>").text("City: " + result.city));
+            card.append($("<p>").text("Sex: " + result.sex));
+            card.append($("<p>").text("Date of Birth: " + result.dob));
+            card.append($("<p>").text("Height: " + result.height));
+            card.append($("<p>").text("Religion: " + result.religion));
+            card.append($("<p>").text("Marital Status: " + result.marriage));
+            card.append($("<p>").text("Manglik: " + result.manglik));
+            card.append($("<p>").text("Profession: " + result.prof));
+            card.append($("<p>").text("Qualification: " + result.quali));
+
+            // Append the card to the container
+            $("#searchResultsContainer").append(card);
+          });
+        }
+      }
+    ).fail(function (err) {
+      alert(err);
+    });
+  });
+});
+
+  // $(document).ready(function()
+  // {
+  //   $("#searchbtn").click(function()
+  //   {
+  //     const sexx= $("#inputGender").val();
+  //   const martialstat = $("#inputStatus").val();
+  //   const states= $("#inputState").val();
+  //   const religions = $("#inputReligion").val();
+  //   let search_obj={
+  //     url :"/fetch-data",
+  //     data: {
+  //       sexx:sexx, martialstat:martialstat , 
+  //       states:states , religions:religions,
+  //     },
+  //   };
+  //   $.ajax(search_obj).done(
+  //     function(resp)
+  //     {
+  //       // alert(JSON.stringify(resp));
+  //       $("#searchResultsContainer").html(JSON.stringify(resp));
+  //     }
+  //   ).fail(function(err)
+  //   {
+  //     alert(err);
+  //   });
+  //   })
+  // })
+</script>
   </head>
   <body>
         <!-- nav bar -->
@@ -87,10 +214,10 @@ crossorigin="anonymous"></script>
       <div class="overlay"></div>
       <div class="login">
         <div class="container2 top-50 start-50 translate-middle">
-          <form class="row g-3" action="/search-profiles">
+          <form class="row g-3">
             <div class="col-md-6">
               <label for="inputGender" class="form-label">Looking For:</label>
-              <select id="inputGender" class="form-select" fdprocessedid="ifitae">
+              <select id="inputGender" class="form-select" fdprocessedid="ifitae" name="inputGender">
                 <option>Choose</option>
                 <option>Male</option>
                 <option>Female</option>
@@ -106,7 +233,7 @@ crossorigin="anonymous"></script>
             </div> -->
             <div class="col-md-6">
               <label for="inputStatus" class="form-label"> Martial Status</label>
-              <select id="inputStatus" class="form-select" fdprocessedid="ifitae">
+              <select id="inputStatus" class="form-select" fdprocessedid="ifitae" name="inputStatus">
                 <option value="">Choose</option>
                   <option value="Single">Single</option>
                   <option value="Married">Married</option>
@@ -117,7 +244,7 @@ crossorigin="anonymous"></script>
             </div>
             <div class="col-md-6">
               <label for="inputState" class="form-label">State</label>
-              <select id="inputState" class="form-select" fdprocessedid="ifitae">
+              <select id="inputState" class="form-select" fdprocessedid="ifitae" name="inputState">
                   <option value="">Choose </option>
                   <option value="AN">Andaman and Nicobar Islands</option>
                   <option value="AP">Andhra Pradesh</option>
@@ -161,7 +288,7 @@ crossorigin="anonymous"></script>
             </div>
             <div class="col-md-6">
               <label for="inputReligion" class="form-label">Religion</label>
-              <select id="inputReligion" class="form-select" fdprocessedid="ifitae">
+              <select id="inputReligion" class="form-select" fdprocessedid="ifitae" name="inputReligion">
                   <option value="" selected="selected" disabled="disabled">
                     Choose
                   </option>
@@ -199,7 +326,7 @@ crossorigin="anonymous"></script>
               </select>
             </div>
             <div class="col-12">
-              <button type="submit" class="btn btn-danger" fdprocessedid="uooo2s"> SEARCH PROFILE</button>
+              <button type="button" class="btn btn-danger" fdprocessedid="uooo2s" id="searchbtn"> SEARCH PROFILE</button>
             </div>
           </form>
         </div>
@@ -207,6 +334,12 @@ crossorigin="anonymous"></script>
     </header>
 
     <!-- search profile ends here  -->
+    <!-- section for showing profiles to user  -->
+    <div class="container mt-4" id="searchResultsContainer">
+      <!-- Search results will be appended here dynamically -->
+    </div>
+    <br>
+    <!-- section ends -->
       <!-- footer page  -->
       <footer class="bg-danger">
         <div class="footer-content">
