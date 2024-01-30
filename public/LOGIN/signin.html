@@ -55,17 +55,32 @@
       $("#exampleInputPassword1").keyup(function () {
         checkFormValidity();
       });
-      
-      // Click event for the "Create profile" button
-      $("#btn1").click(function () {
-        if (checkFormValidity()) {
-          // Submit the form if all fields are filled
-          $("form").submit();
-        } else {
-          // Optionally, display a message or take other actions
-          console.log("Please fill in all required fields.");
+      $("#btn1").click(function()
+      {
+        const logmail = $("#exampleInputEmail1").val();
+        const logpass = $("#exampleInputPassword1").val();
+        let login_obj={
+          url : "/signin1",
+          data:{
+            logmail:logmail , 
+            logpass: logpass , 
+          }
         }
-      });
+        $.ajax(login_obj).done(function(resp)
+        {
+          if(resp==="Authentication successful")
+          {
+            alert("Logged in ur profile");
+          }
+          else
+          {
+            alert("nooo");
+          }
+        }).fail(function(err)
+        {
+          alert(err);
+        });
+      })
     });
   </script>
   <script>
@@ -79,7 +94,7 @@
 
         <div class="card">
             <div class="card-body">
-                <form action="/signin1" method="post">
+                <form>
                     <div class="container">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Email address</label><span id="errMail">*</span>

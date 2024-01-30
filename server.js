@@ -36,6 +36,11 @@ app.get("/loginsignup", function (req, resp) {
   let filepath = process.cwd() + "/public/LOGIN/signup.html";
   resp.sendFile(filepath);
 });
+app.get("/userprofile" , function(req , resp)
+{
+  let filepath=process.cwd()+"/public/display profiles/showprofiles.html";
+  resp.sendFile(filepath);
+});
 //connecting to database
 const configobj = {
   host: "127.0.0.1",
@@ -147,9 +152,9 @@ app.get("/signin", function (req, resp) {
   let filepath = process.cwd() + "/public/LOGIN/signin.html";
   resp.sendFile(filepath);
 });
-app.post("/signin1", function (req, resp) {
-  let email = req.body.txtEmail;
-  let pass = req.body.txtPass;
+app.get("/signin1", function (req, resp) {
+  let email = req.query.logmail;
+  let pass = req.query.logpass;
   mysql.query(
     "SELECT * FROM logindetails WHERE emailid = ? AND pwd = ?",
     [email, pass],
@@ -157,15 +162,14 @@ app.post("/signin1", function (req, resp) {
       if (error) {
         // Handle database error
         console.error(error);
-        return resp.status(500).send("Internal Server Error");
+        return resp.send("Internal Server Error");
       }
-
       if (results.length > 0) {
         // User authentication successful
-        resp.status(200).send("Authentication successful");
+        resp.send("Authentication successful");
       } else {
         // User authentication failed
-        resp.status(401).send("Invalid credentials");
+        resp.send("Invalid credentials");
       }
     }
   );
