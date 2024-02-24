@@ -36,9 +36,8 @@ app.get("/loginsignup", function (req, resp) {
   let filepath = process.cwd() + "/public/LOGIN/signup.html";
   resp.sendFile(filepath);
 });
-app.get("/userprofile" , function(req , resp)
-{
-  let filepath=process.cwd()+"/public/display profiles/showprofiles.html";
+app.get("/userprofile", function (req, resp) {
+  let filepath = process.cwd() + "/public/display profiles/showprofiles.html";
   resp.sendFile(filepath);
 });
 //connecting to database
@@ -96,7 +95,7 @@ app.use(fileuploader());
 
 app.post("/form-register", function (req, resp) {
   // create table register1(picname varchar(255) ,Name varchar(255) ,  Fname varchar(255) , Mname varchar(255) , state varchar(255) , city varchar(255) ,
-  // sex varchar(255) , dob date  ,height int ,  religion varchar(255)  ,marriage varchar(255) , manglik varchar(255) , prof varchar(255) , quali varchar(255)); 
+  // sex varchar(255) , dob date  ,height int ,  religion varchar(255)  ,marriage varchar(255) , manglik varchar(255) , prof varchar(255) , quali varchar(255));
   const name = req.body.inputname;
   const fname = req.body.inputFName;
   const mname = req.body.inputMName;
@@ -174,20 +173,44 @@ app.get("/signin1", function (req, resp) {
     }
   );
 });
-app.get("/fetch-data" , function(req , resp)
-{
+app.get("/fetch-data", function (req, resp) {
   let Sex = req.query.sexx;
-  let Marriage =  req.query.martialstat;
+  let Marriage = req.query.martialstat;
   let State = req.query.states;
   let Religion = req.query.religions;
-  mysql.query("select *from register3 where sex=? and marriage=? and state=? and religion=?" , [Sex , Marriage , State , Religion] , function(err , resultJson)
-  {
-    if(err==null)
-    {
-      resp.send(resultJson);
+  mysql.query(
+    "select *from register3 where sex=? and marriage=? and state=? and religion=?",
+    [Sex, Marriage, State, Religion],
+    function (err, resultJson) {
+      if (err == null) {
+        resp.send(resultJson);
+      } else resp.send(err.message);
+      //console.log(resultJson);
     }
-    else
-    resp.send(err.message);
-    //console.log(resultJson);
-  })
-})
+  );
+});
+
+// search page
+app.get("/angular-fetch-distinct", function (req, resp) {
+  mysql.query(
+    "select distinct sex , marriage, state ,religion from register3",
+    function (err, resultJsonAry) {
+      console.log(resultJsonAry);
+      resp.send(resultJsonAry);
+    }
+  );
+});
+app.get("/fetch-one-record", function (req, resp) {
+  mysql.query(
+    "select * from register3 where sex=? and state=? and religion = ? and marriage=?",
+    [req.query.gender, req.query.state, req.query.religion, req.query.status],
+    function (err, resultJsonAry) {
+      if (resultJsonAry != []) {
+        console.log(resultJsonAry);
+        resp.send(resultJsonAry);
+      } else {
+        resp.send("no record");
+      }
+    }
+  );
+});
