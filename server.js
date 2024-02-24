@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const mysql2 = require("mysql2");
 const fileuploader = require("express-fileupload");
+const e = require("express");
 app.use(express.static("public"));
 app.listen("3000", function () {
   console.log(`Server is running on http://localhost:${3000}`);
@@ -197,6 +198,45 @@ app.get("/angular-fetch-distinct", function (req, resp) {
     function (err, resultJsonAry) {
       console.log(resultJsonAry);
       resp.send(resultJsonAry);
+    }
+  );
+});
+
+
+app.get("/angular-fetch-distinct", function (req, resp) {
+  mysql.query(
+    "select distinct sex from register3",
+    function (err, resulSexAry) {
+      if (err) {
+        console.log(err);
+      }
+      mysql.query(
+        "select distinct marriage from register3",
+        function (err, resultMarriageAry) {
+          if (err) {
+            console.log(err);
+          }
+          mysql.query("select distinct state from register3", function(err , resultStateAry)
+          {
+            if (err) {
+              console.log(err);
+            }
+            mysql.query("slect distinct religion from register3" , function(err , resultRelAry)
+            {
+              if(err)
+              {
+                console.log(err);
+              }
+              resp.send({
+                states: resultStateAry,
+                genders: resulSexAry,
+                statuses : resultMarriageAry,
+                religions : resultRelAry
+              });
+            })
+          })
+        }
+      );
     }
   );
 });

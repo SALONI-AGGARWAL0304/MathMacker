@@ -89,10 +89,10 @@ crossorigin="anonymous"
       $http.get(url).then(success , error);
       function success(respose)
       {
-        $scope.jsonStateAry = respose.data;
-        $scope.jsonSexAry = respose.data;
-        $scope.jsonStatusAry = respose.data;
-        $scope.jsonReligionAry = respose.data;
+        $scope.jsonStateAry = respose.data.states;
+        $scope.jsonSexAry = respose.data.genders;
+        $scope.jsonStatusAry = respose.data.statuses;
+        $scope.jsonReligionAry = respose.data.religions;
       }
       function error(response)
       {
