@@ -87,12 +87,12 @@ crossorigin="anonymous"
     {
       let url="/angular-fetch-distinct";
       $http.get(url).then(success , error);
-      function success(respose)
+      function success(response)
       {
-        $scope.jsonStateAry = respose.data.states;
-        $scope.jsonSexAry = respose.data.genders;
-        $scope.jsonStatusAry = respose.data.statuses;
-        $scope.jsonReligionAry = respose.data.religions;
+        $scope.jsonStateAry = response.data.states;
+        $scope.jsonSexAry = response.data.genders;
+        $scope.jsonStatusAry = response.data.statuses;
+        $scope.jsonReligionAry = response.data.religions;
       }
       function error(response)
       {

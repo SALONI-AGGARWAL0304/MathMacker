@@ -192,16 +192,6 @@ app.get("/fetch-data", function (req, resp) {
 });
 
 // search page
-app.get("/angular-fetch-distinct", function (req, resp) {
-  mysql.query(
-    "select distinct sex , marriage, state ,religion from register3",
-    function (err, resultJsonAry) {
-      console.log(resultJsonAry);
-      resp.send(resultJsonAry);
-    }
-  );
-});
-
 
 app.get("/angular-fetch-distinct", function (req, resp) {
   mysql.query(
@@ -216,25 +206,28 @@ app.get("/angular-fetch-distinct", function (req, resp) {
           if (err) {
             console.log(err);
           }
-          mysql.query("select distinct state from register3", function(err , resultStateAry)
-          {
-            if (err) {
-              console.log(err);
-            }
-            mysql.query("slect distinct religion from register3" , function(err , resultRelAry)
-            {
-              if(err)
-              {
+          mysql.query(
+            "select distinct state from register3",
+            function (err, resultStateAry) {
+              if (err) {
                 console.log(err);
               }
-              resp.send({
-                states: resultStateAry,
-                genders: resulSexAry,
-                statuses : resultMarriageAry,
-                religions : resultRelAry
-              });
-            })
-          })
+              mysql.query(
+                "select distinct religion from register3",
+                function (err, resultRelAry) {
+                  if (err) {
+                    console.log(err);
+                  }
+                  resp.send({
+                    states: resultStateAry,
+                    genders: resulSexAry,
+                    statuses: resultMarriageAry,
+                    religions: resultRelAry,
+                  });
+                }
+              );
+            }
+          );
         }
       );
     }
