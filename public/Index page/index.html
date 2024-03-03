@@ -10,18 +10,30 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../style/index.css" />
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.js"
+      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+      crossorigin="anonymous"
+    ></script>
 
+    <link rel="stylesheet" href="../style/index.css" />
+    <style>
+      .not-ok
+      {
+        color: red;
+      }
+      .ok{
+        color: green;
+      }
+    </style>
     <style>
       .nav-link-hover
       {
@@ -32,6 +44,99 @@
         color: white;
       }
     </style>
+    <script>
+      $(document).ready(function()
+      {
+        $("#exampleInputPassword1").keyup(function () {
+          let pass = $("#exampleInputPassword1").val();
+          var r =
+            /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+
+          if (r.test(pass) == false) {
+            $("#errPass").html("Invalid").addClass("not-ok").removeClass("ok");
+            $("#signup_btn").prop("disabled" , true);
+          } else {
+            $("#errPass").html("Valid").addClass("ok").removeClass("not-ok");
+            $("#signup_btn").prop("disabled" , false);
+          }
+        });
+        $("#exampleInputEmail1").keyup(function()
+        {
+            let obj=
+            {
+                url:"/check-email",
+                data:
+                {
+                    kuchEmail : $("#exampleInputEmail1").val(),
+                },
+            };
+            $.ajax(obj).done(function(resp)
+            {
+            $("#ettAval").html(resp);
+               if(resp==="Not Available")
+               {
+                $("#ettAval").addClass("not-ok").removeClass("ok");
+                $("#signup_btn").prop("disabled" , true);
+               }
+               else
+               {
+                $("#ettAval").addClass("ok").removeClass("not-ok");
+                $("#signup_btn").prop("disabled" , false);
+               }
+            }).fail(function(err)
+            {
+                alert(err);
+            });
+        })
+        $("#signup_btn").click(function(){
+            var email = $("#exampleInputEmail1").val();
+            var pwd = $("#exampleInputPassword1").val();
+            if(email=="" || pwd=="")
+            {
+              alert("please fill values first");
+            }
+            else 
+           { var obj_signup = (
+              {
+                type:"post",
+                url:"/signup-collector",
+                data:{
+                  email:email,
+                  pwd:pwd,
+                }
+              }
+            )
+            $.ajax(obj_signup).done(function(resp){
+              $("#signup_report").html(resp);
+            location.href="../LOGIN/register.html";
+            }
+            ).fail(function(err){
+              alert("error alert");
+              alert(err.message);
+            })
+          }
+        })
+        $("#login_btn").click(function()
+        {
+          var email = $("#exampleInputEmail1l").val();
+          var pwd = $("#exampleInputPassword1l").val();
+          let login_obj={
+            url: "/login-collector",
+            data: {
+              email:email,
+              pwd:pwd,
+            }
+          }
+          $.ajax(login_obj).done(function(resp){
+            alert(resp);
+            // location.href="../LOGIN/register.html";
+          }).fail(function(err)
+          {
+            alert(err);
+          });
+        })
+      })
+    </script>
   </head>
   <body>
     <!-- nav bar  -->
@@ -72,16 +177,18 @@
                     >Search Profiles</a
                   >
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link nav-link-hover" id="loginsignup" href="/loginsignup"
-                    >LOGIN/SIGNUP</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link nav-link-hover" id="profilebutton" href="/userprofile" style="display: none;"
-                    >PROFILE</a
-                  >
-                </li>
+                <button
+          class="btn btn-outline-success me-2"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#modalSignup"
+        >
+          SIGNUP
+        </button>
+        <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal"
+        data-bs-target="#modalLogin">
+          LOGIN
+        </button>
               </div>
             </ul>
         
@@ -339,5 +446,126 @@
 
 </footer>
 <!-- footer section ends  -->
+
+
+
+<!-- modal of signup  -->
+<div
+        class="modal fade"
+        id="modalSignup"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-success">
+              <h1 class="modal-title fs-5 text-white" id="exampleModalLabel ">
+                SIGNUP
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label"
+                    >Email address </label
+                  > <span id="ettAval">*</span>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    name="txtEmail"
+                  />
+                  
+                  <div id="emailHelp" class="form-text">
+                    We'll never share your email with anyone else.
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label"
+                    >Password </label
+                  > <span id="errPass">*</span>
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="exampleInputPassword1"
+                    name ="txtPass"
+                  />
+                </div>
+                <div class="modal-footer">
+                  <input type="button" class="btn btn-outline-success" value="SIGNUP" id="signup_btn">
+                </input>
+                </div>
+                <span id="signup_report">*</span>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- modal of signup ends here  -->
+      <!-- modal of login button -->
+      <div
+      class="modal fade"
+      id="modalLogin"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header bg-success">
+            <h1 class="modal-title fs-5 text-white" id="exampleModalLabel ">
+               LOGIN
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="exampleInputEmail1l" class="form-label"
+                  >Email address</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="exampleInputEmail1l"
+                  aria-describedby="emailHelp"
+                  name="txtEmaill"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="exampleInputPassword1l" class="form-label"
+                  >Password</label
+                >
+
+                <input
+                  type="password"
+                  class="form-control"
+                  id="exampleInputPassword1l"
+                  name ="txtPassl"
+                />
+              </div>
+              <div class="modal-footer">
+                <input type="button" class="btn btn-outline-success" value="LOGIN" id="login_btn">
+              </input>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- modal of login ends here  -->
   </body>
 </html>

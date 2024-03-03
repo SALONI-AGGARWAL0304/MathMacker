@@ -212,9 +212,6 @@ crossorigin="anonymous"
                   
               </select>
             </div>
-            <div class="col-12">
-              <button type="button" class="btn btn-danger" fdprocessedid="uooo2s" id="searchbtn"> SEARCH PROFILE</button>
-            </div>
           </form>
         </div>
       </div>
@@ -226,7 +223,7 @@ crossorigin="anonymous"
       <div class="row">
           <div class="col-md-3" ng-repeat="obj in jsonRecordsAry">
               <div class="card" >
-                  <img src="uploads/{{obj.picname}}" class="card-img-top" alt="..." height="150">
+                  <img src="../uploads/{{obj.picname}}" class="card-img-top" alt="..." height="150">
                   <div class="card-body">
                       <h5 class="card-title">{{obj.Name}}</h5>
                       <p class="card-text">
@@ -237,7 +234,7 @@ crossorigin="anonymous"
                               Mother Name : {{obj.Mname}}
                           </p>
                       </p>
-                      <a href="#" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#detailsModal"  ng-click="doShowDetails($index);">Show Full Details</a>
+                      <a href="#" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#detailsModal"  ng-click="doShowDetails($index);">Show Full Details</a>
                   </div>
               </div>
           </div>

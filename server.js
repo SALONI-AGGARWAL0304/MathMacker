@@ -32,11 +32,11 @@ app.get("/Homiee", function (req, resp) {
   let filepath = process.cwd() + "/public/Index page/index.html";
   resp.sendFile(filepath);
 });
-app.get("/loginsignup", function (req, resp) {
-  resp.contentType("text/html");
-  let filepath = process.cwd() + "/public/LOGIN/signup.html";
-  resp.sendFile(filepath);
-});
+// app.get("/loginsignup", function (req, resp) {
+//   resp.contentType("text/html");
+//   let filepath = process.cwd() + "/public/LOGIN/signup.html";
+//   resp.sendFile(filepath);
+// });
 app.get("/userprofile", function (req, resp) {
   let filepath = process.cwd() + "/public/display profiles/showprofiles.html";
   resp.sendFile(filepath);
@@ -59,23 +59,37 @@ mysql.connect(function (err) {
 });
 app.use(express.urlencoded({ extended: true }));
 // create table logindetails(emailid varchar(255) , pwd varchar(255) , PRIMARY KEY (emailid));
-app.post("/login1", function (req, resp) {
-  let email = req.body.txtEmail;
-  let pass = req.body.txtPass;
-  mysql.query(
-    "insert into logindetails values(?,?)",
-    [email, pass],
-    function (err) {
-      if (err == null) {
-        // resp.send("logged in");
-        // resp.redirect("/register.html");
-        let filepath = process.cwd() + "/public/LOGIN/register.html";
-        resp.sendFile(filepath);
-      } else {
-        resp.send(err);
-      }
+app.post("/signup-collector", function (req, resp) {
+  let Email = req.body.email;
+  let pass = req.body.pwd;
+  mysql.query("insert into logindetails values (?,?)",[Email , pass] , function(err )
+  {
+    if(err==null)
+    {
+      resp.send("Record saved successfully");
     }
-  );
+    else
+    {
+      console.log(err.message);
+    }
+  })
+});
+app.get("/login-collector", function (req, resp) {
+  const Email = req.query.email;
+  const pass = req.query.pwd;
+   console.log("hey");
+  mysql.query("select *from logindetails where emailid=?  and pwd =?",[Email, pass], function(err)
+  {
+    if(err==null)
+    {
+      console.log(Email);
+      console.log(pass);
+      resp.send("Logged in successfully");
+    }
+    else{
+      console.log(err.message);
+    }
+  })
 });
 app.get("/check-email", function (req, resp) {
   let email = req.query.kuchEmail;
