@@ -108,7 +108,6 @@
             )
             $.ajax(obj_signup).done(function(resp){
               $("#signup_report").html(resp);
-              localStorage.setItem("user" , email);
             location.href="../LOGIN/register.html";
             }
             ).fail(function(err){
@@ -130,11 +129,19 @@
           }
           $.ajax(login_obj).done(function(resp){
             alert(resp);
+            $("#profile_link").show();
+            $("#signup_link").hide();
+            $("#login_link").hide();
             // location.href="../LOGIN/register.html";
           }).fail(function(err)
           {
             alert(err);
           });
+        })
+          
+        $("#profile_link").click(function()
+        {
+          location.href="../LOGIN/register.html";
         })
       })
     </script>
@@ -183,13 +190,15 @@
           type="button"
           data-bs-toggle="modal"
           data-bs-target="#modalSignup"
+          id="signup_link"
         >
           SIGNUP
         </button>
         <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal"
-        data-bs-target="#modalLogin">
+        data-bs-target="#modalLogin" id="login_link">
           LOGIN
         </button>
+        <button class="btn btn-outline-success me-2" type="button" id="profile_link" style="display: none;">PROFILE</button>
               </div>
             </ul>
         
