@@ -108,7 +108,6 @@
             )
             $.ajax(obj_signup).done(function(resp){
               $("#signup_report").html(resp);
-            location.href="../LOGIN/register.html";
             }
             ).fail(function(err){
               alert("error alert");
@@ -129,6 +128,8 @@
           }
           $.ajax(login_obj).done(function(resp){
             alert(resp);
+            localStorage.setItem("user" , email);
+            location.href="../AFTERlogin/loginchange.html";
           }).fail(function(err)
           {
             alert(err);

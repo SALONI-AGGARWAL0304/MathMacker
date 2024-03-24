@@ -198,6 +198,45 @@
         });
       });
     </script>
+    <script>
+        $(document).ready(function()
+        {
+            let user = localStorage.getItem("user");
+            $("#emails").val(user);
+            $("#btnSearch").click(function () {
+          let kuchMail = $("#emails").val();
+          let obj = {
+            url: "/fetch-one",
+            type: "post",
+            data: {
+              kuchMail: kuchMail,
+            },
+          };
+          $.ajax(obj)
+            .done(function (respJsonAry) {
+              alert(JSON.stringify(respJsonAry));
+
+              $("#inputname").val(respJsonAry[0].Name); //use table col
+              $("#inputFName").val(respJsonAry[0].Fname);
+              $("#inputMName").val(respJsonAry[0].Mname);
+              $("#state").val(respJsonAry[0].state);
+              $("#city").val(respJsonAry[0].city);
+              $("#sex").val(respJsonAry[0].sex);
+              $("#dob").val(respJsonAry[0].dob);
+              parseInt($("#height").val(respJsonAry[0].height));
+              $("#religion").val(respJsonAry[0].religion);
+              $("#marriagestat").val(respJsonAry[0].marriage);
+              $("#manglik").val(respJsonAry[0].manglik);
+              $("#proffession").val(respJsonAry[0].prof);
+              $("#qualification").val(respJsonAry[0].quali);
+              $("#prev").prop("src", "uploads/" + respJsonAry[0].picname);
+            })
+            .fail(function (err) {
+              alert(err);
+            });
+        });
+        })
+    </script>
   </head>
   <body>
     <span id="active"></span>
@@ -230,6 +269,23 @@
                   <img src="" alt="" id="prev" height="100" width="100" />
                 </div>
               </center>
+              <div class="col-md-9">
+                <label for="emails" class="form-label">Email</label>
+                <input
+                  readonly
+                  type="text"
+                  class="form-control"
+                  id="emails"
+                  name="email"
+                />
+              </div>
+
+              <div class="col-md-3">
+                <br />
+                <button type="button" class="btn btn-danger" id="btnSearch">
+                  Search
+                </button>
+              </div>
               <div class="col-md-4">
                 <label for="inputname" class="form-label">Name</label>
                 <span id="errName">*</span>

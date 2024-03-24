@@ -112,6 +112,7 @@ app.post("/form-register", function (req, resp) {
   // create table register1(picname varchar(255) ,Name varchar(255) ,  Fname varchar(255) , Mname varchar(255) , state varchar(255) , city varchar(255) ,
   // sex varchar(255) , dob date  ,height int ,  religion varchar(255)  ,marriage varchar(255) , manglik varchar(255) , prof varchar(255) , quali varchar(255));
   const name = req.body.inputname;
+  const mail = req.body.email;
   const fname = req.body.inputFName;
   const mname = req.body.inputMName;
   const state = req.body.state;
@@ -135,8 +136,9 @@ app.post("/form-register", function (req, resp) {
   req.body.ppic = filename;
   // resp.send(req.body);
   mysql.query(
-    "insert into register3 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    "insert into register3 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
     [
+      mail,
       filename,
       name,
       fname,
@@ -258,6 +260,16 @@ app.get("/fetch-one-record", function (req, resp) {
       } else {
         resp.send("no record");
       }
+    }
+  );
+});
+app.post("/fetch-one", function (req, resp) {
+  mysql.query(
+    "select * from register3 where emailid=?",
+    [req.body.kuchMail],
+    function (err, resultJsonAry) {
+      // console.log(req.body);
+      resp.send(resultJsonAry);
     }
   );
 });
