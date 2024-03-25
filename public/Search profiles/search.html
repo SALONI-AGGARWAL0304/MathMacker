@@ -173,7 +173,7 @@ crossorigin="anonymous"
               <select id="inputGender" class="form-select" fdprocessedid="ifitae" name="inputGender"
               ng-options="obj.sex  for obj in jsonSexAry"
               ng-model="selSex"
-              ng-change="doShowSel();">
+              >
                 <option value="">Choose</option>
                 <!-- <option>Male</option>
                 <option>Female</option> -->
@@ -184,7 +184,7 @@ crossorigin="anonymous"
               <select id="inputStatus" class="form-select" fdprocessedid="ifitae" name="inputStatus"
               ng-options="obj.marriage  for obj in jsonStatusAry"
         ng-model="selStatus"
-        ng-change="doShowSel();">
+        >
                 <option value="">Choose</option>
               
               </select>
@@ -194,7 +194,7 @@ crossorigin="anonymous"
               <select id="inputState" class="form-select" fdprocessedid="ifitae" name="inputState"
               ng-options="obj.state  for obj in jsonStateAry"
         ng-model="selState"
-        ng-change="doShowSel();">
+        >
                   <option value="">Choose </option>
                   
                 
@@ -205,13 +205,16 @@ crossorigin="anonymous"
               <select id="inputReligion" class="form-select" fdprocessedid="ifitae" name="inputReligion"
               ng-options="obj.religion  for obj in jsonReligionAry"
         ng-model="selReligion"
-        ng-change="doShowSel();">
+        >
                   <option value="" >
                     Choose
                   </option>
                   
               </select>
             </div>
+            <center>
+              <button type="button" class="btn btn-danger" ng-click="doShowSel();">Find Match</button>
+            </center>
           </form>
         </div>
       </div>
