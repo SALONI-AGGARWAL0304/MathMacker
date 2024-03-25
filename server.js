@@ -29,7 +29,7 @@ app.get("/aboutss", function (req, resp) {
 });
 app.get("/Homiee", function (req, resp) {
   resp.contentType("text/html");
-  let filepath = process.cwd() + "/public/Index page/index.html";
+  let filepath = process.cwd() + "/public/Index page/index2.html";
   resp.sendFile(filepath);
 });
 // app.get("/loginsignup", function (req, resp) {
