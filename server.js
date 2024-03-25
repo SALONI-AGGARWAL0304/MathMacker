@@ -42,20 +42,20 @@ app.get("/userprofile", function (req, resp) {
   resp.sendFile(filepath);
 });
 //connecting to database
-const configobj = {
-  host: "127.0.0.1",
-  user: "root",
-  password: "Saloni##2004",
-  database: "loginsign",
-  dateStrings: true,
-};
 // const configobj = {
-//   host: process.env.DB_HOST,
-//   user: process.env.DB_USERNAME,
-//   password: process.env.DB_PASSWORD,
-//   database:  process.env.DB_DBNAME,
+//   host: "127.0.0.1",
+//   user: "root",
+//   password: "Saloni##2004",
+//   database: "loginsign",
 //   dateStrings: true,
 // };
+const configobj = {
+  host: process.env.DB_HOST,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database:  process.env.DB_DBNAME,
+  dateStrings: true,
+};
 const mysql = mysql2.createConnection(configobj);
 mysql.connect(function (err) {
   if (err == null) {
@@ -143,9 +143,9 @@ app.post("/form-register", function (req, resp) {
   req.body.ppic = filename;
   // resp.send(req.body);
   mysql.query(
-    "insert into register3 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+    "insert into register3 values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
     [
-      101,
+     
       mail,
       filename,
       name,
