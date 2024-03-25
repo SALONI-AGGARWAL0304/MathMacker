@@ -228,7 +228,7 @@
               $("#manglik").val(respJsonAry[0].manglik);
               $("#proffession").val(respJsonAry[0].prof);
               $("#qualification").val(respJsonAry[0].quali);
-              $("#prev").prop("src", "uploads/" + respJsonAry[0].picname);
+              $("#prev").prop("src", "../uploads/" + respJsonAry[0].picname);
             })
             .fail(function (err) {
               alert(err);
