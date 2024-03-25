@@ -44,122 +44,17 @@
         color: white;
       }
     </style>
-
-
-<script>
-  $(document).ready(function() {
-    $("#exampleInputPassword1").keyup(function () {
-          let pass = $("#exampleInputPassword1").val();
-          var r =
-            /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-
-          if (r.test(pass) == false) {
-            $("#errPass").html("Invalid").addClass("not-ok").removeClass("ok");
-            $("#signup_btn").prop("disabled" , true);
-          } else {
-            $("#errPass").html("Valid").addClass("ok").removeClass("not-ok");
-            $("#signup_btn").prop("disabled" , false);
-          }
-        });
-        $("#exampleInputEmail1").keyup(function()
+    <script>
+        $(document).ready(function()
         {
-            let obj=
-            {
-                url:"/check-email",
-                data:
-                {
-                    kuchEmail : $("#exampleInputEmail1").val(),
-                },
-            };
-            $.ajax(obj).done(function(resp)
-            {
-            $("#ettAval").html(resp);
-               if(resp==="Not Available")
-               {
-                $("#ettAval").addClass("not-ok").removeClass("ok");
-                $("#signup_btn").prop("disabled" , true);
-               }
-               else
-               {
-                $("#ettAval").addClass("ok").removeClass("not-ok");
-                $("#signup_btn").prop("disabled" , false);
-               }
-            }).fail(function(err)
-            {
-                alert(err);
-            });
+            let user = localStorage.getItem("user");
+            $("#btnLogout").click(function(){
+          localStorage.removeItem("user");
+          location.href="../Index Page/index.html";
         })
-    // Show signup modal by default
-    $('#modalSignup').modal('show');
-
-    // Disable background scrolling when modal is open
-    $('#modalSignup').on('shown.bs.modal', function() {
-      $('body').addClass('modal-open');
-    });
-
-    // $('#modalLogin').on('shown.bs.modal', function() {
-    //   $('body').addClass('modal-open');
-    // });
-
-    // Handle signup button click
-    $("#signup_btn").click(function() {
-      // Your signup logic here
-      var email = $("#exampleInputEmail1").val();
-            var pwd = $("#exampleInputPassword1").val();
-            if(email=="" || pwd=="")
-            {
-              alert("please fill values first");
-            }
-            else 
-           { var obj_signup = (
-              {
-                type:"post",
-                url:"/signup-collector",
-                data:{
-                  email:email,
-                  pwd:pwd,
-                }
-              }
-            )
-            $.ajax(obj_signup).done(function(resp){
-              $("#signup_report").html(resp);
-              $('#modalSignup').modal('hide');
-              $('#modalLogin').modal('show'); 
-            }
-            ).fail(function(err){
-              alert("error alert");
-              alert(err.message);
-            })
-          }
+        })
         
-    });
-
-    // Handle login button click
-    $("#login_btn").click(function() {
-      // Your login logic here
-      var email = $("#exampleInputEmail1l").val();
-          var pwd = $("#exampleInputPassword1l").val();
-          let login_obj={
-            url: "/login-collector",
-            data: {
-              email:email,
-              pwd:pwd,
-            }
-          }
-          $.ajax(login_obj).done(function(resp){
-            alert(resp);
-            localStorage.setItem("user" , email);
-            // location.href="../AFTERlogin/loginchange.html";
-            location.href="../Index page/index2.html";
-          }).fail(function(err)
-          {
-            alert(err);
-          });
-        })
-    });
-</script> 
-
-
+    </script>
   </head>
   <body>
     <!-- nav bar  -->
@@ -200,19 +95,19 @@
                     >Search Profiles</a
                   >
                 </li>
-                <!-- <button
-          class="btn btn-outline-success me-2"
-          type="button"
-          data-bs-toggle="modal"
-          data-bs-target="#modalSignup"
-          id="signup_link"
-        >
-          SIGNUP
-        </button>
-        <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal"
-        data-bs-target="#modalLogin" id="login_link">
-          LOGIN
-        </button> -->
+                <li>
+                    <a href="../AFTERlogin/userProfile.html" class="btn btn-primary">Profile</a>
+                </li>
+                <li>
+                    <button
+                    class="btn btn-outline-primary me-2"
+                    type="button"
+                    data-bs-toggle="modal"
+                   id="btnLogout"
+                  >
+                    Logout
+                    </button>
+                </li>
               </div>
             </ul>
         
@@ -473,125 +368,6 @@
 
 
 
-<!-- modal of signup  -->
-<div
-        class="modal fade"
-        id="modalSignup"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-        data-bs-backdrop="static"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header bg-success">
-              <h1 class="modal-title fs-5 text-white" id="exampleModalLabel ">
-                SIGNUP
-              </h1>
-              <!-- <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button> -->
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="mb-3">
-                  <label for="exampleInputEmail1" class="form-label"
-                    >Email address </label
-                  > <span id="ettAval">*</span>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    name="txtEmail"
-                  />
-                  
-                  <div id="emailHelp" class="form-text">
-                    We'll never share your email with anyone else.
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="exampleInputPassword1" class="form-label"
-                    >Password </label
-                  > <span id="errPass">*</span>
-                  <input
-                    type="password"
-                    class="form-control"
-                    id="exampleInputPassword1"
-                    name ="txtPass"
-                  />
-                </div>
-                <div class="modal-footer">
-                  <input type="button" class="btn btn-outline-success" value="SIGNUP" id="signup_btn">
-                </input>
-                Already registered ?
-                <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal"
-                data-bs-target="#modalLogin" >
-                  LOGIN
-                </button>
-                </div>
-                <span id="signup_report">*</span>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- modal of signup ends here  -->
-      <!-- modal of login button -->
-      <div
-      class="modal fade"
-      id="modalLogin"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-      data-bs-backdrop="static"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header bg-success">
-            <h1 class="modal-title fs-5 text-white" id="exampleModalLabel ">
-               LOGIN
-            </h1>
-            
-          </div>
-          <div class="modal-body">
-            <form>
-              <div class="mb-3">
-                <label for="exampleInputEmail1l" class="form-label"
-                  >Email address</label
-                >
-                <input
-                  type="email"
-                  class="form-control"
-                  id="exampleInputEmail1l"
-                  aria-describedby="emailHelp"
-                  name="txtEmaill"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="exampleInputPassword1l" class="form-label"
-                  >Password</label
-                >
 
-                <input
-                  type="password"
-                  class="form-control"
-                  id="exampleInputPassword1l"
-                  name ="txtPassl"
-                />
-              </div>
-              <div class="modal-footer">
-                <input type="button" class="btn btn-outline-success" value="LOGIN" id="login_btn">
-              </input>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- modal of login ends here  -->
   </body>
 </html>
