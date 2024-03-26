@@ -49,18 +49,18 @@
 <script>
   $(document).ready(function() {
     $("#exampleInputPassword1").keyup(function () {
-          let pass = $("#exampleInputPassword1").val();
-          var r =
-            /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
+    let pass = $("#exampleInputPassword1").val();
+    var r = /(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 
-          if (r.test(pass) == false) {
-            $("#errPass").html("Invalid").addClass("not-ok").removeClass("ok");
-            $("#signup_btn").prop("disabled" , true);
-          } else {
-            $("#errPass").html("Valid").addClass("ok").removeClass("not-ok");
-            $("#signup_btn").prop("disabled" , false);
-          }
-        });
+    if (r.test(pass) == false) {
+        $("#errPass").html("Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*).").addClass("not-ok").removeClass("ok");
+        $("#signup_btn").prop("disabled", true);
+    } else {
+        $("#errPass").html("Valid").addClass("ok").removeClass("not-ok");
+        $("#signup_btn").prop("disabled", false);
+    }
+});
+
         $("#exampleInputEmail1").keyup(function()
         {
             let obj=
