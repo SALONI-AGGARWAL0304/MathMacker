@@ -70,14 +70,12 @@
           } else {
             $("#errstate").html("");
           }
-          if($("#city").val()=="")
-          {
+          if ($("#city").val() == "") {
             $("#errcity").html("This value is required");
-            isValid=false;
-          }else
-          {
+            isValid = false;
+          } else {
             $("#errcity").html("");
-          }ppl
+          }
           // Check if the sex field is empty
           if ($("#sex").val() == "") {
             $("#errSex").html("This value is required");
@@ -198,11 +196,10 @@
       });
     </script>
     <script>
-        $(document).ready(function()
-        {
-            let user = localStorage.getItem("user");
-            $("#emails").val(user);
-            $("#btnSearch").click(function () {
+      $(document).ready(function () {
+        let user = localStorage.getItem("user");
+        $("#emails").val(user);
+        $("#btnSearch").click(function () {
           let kuchMail = $("#emails").val();
           let obj = {
             url: "/fetch-one",
@@ -234,7 +231,27 @@
               alert(err);
             });
         });
+        $("#btndel").click(function()
+        {
+          if(confirm("Find a Mtch?")==false) return ;
+          let kuchMail = $("#emails").val();
+          let obj ={
+            url:"/delete-user",
+            type:"post",
+            data:{
+              Kuchmail: kuchMail,
+            },
+          }
+          $.ajax(obj).done(function(resp)
+          {
+            alert(resp);
+            location.href="../Index page/index2.html";
+          }).fail(function(err)
+          {
+            alert(err);
+          });
         })
+      });
     </script>
   </head>
   <body>
@@ -398,7 +415,7 @@
                   </option>
                   <option value="Aggarwal">Aggarwal</option>
                   <option value="Jatt Sikh">Jatt Sikh</option>
-      
+
                   <option value="Other">Other</option>
                 </select>
               </div>
@@ -449,6 +466,11 @@
               <div class="col-12">
                 <button type="submit" class="btn btn-danger" id="btncheck">
                   Create profile
+                </button>
+              </div>
+              <div class="col-12">
+                <button type="button" class="btn btn-danger" id="btndel">
+                  Delete profile
                 </button>
               </div>
             </form>

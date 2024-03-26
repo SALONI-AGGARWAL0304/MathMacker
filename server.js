@@ -42,20 +42,20 @@ app.get("/userprofile", function (req, resp) {
   resp.sendFile(filepath);
 });
 //connecting to database
-// const configobj = {
-//   host: "127.0.0.1",
-//   user: "root",
-//   password: "Saloni##2004",
-//   database: "loginsign",
-//   dateStrings: true,
-// };
 const configobj = {
-  host: process.env.DB_HOST,
-  user: process.env.DB_USERNAME,
-  password: process.env.DB_PASSWORD,
-  database:  process.env.DB_DBNAME,
+  host: "127.0.0.1",
+  user: "root",
+  password: "Saloni##2004",
+  database: "loginsign",
   dateStrings: true,
 };
+// const configobj = {
+//   host: process.env.DB_HOST,
+//   user: process.env.DB_USERNAME,
+//   password: process.env.DB_PASSWORD,
+//   database:  process.env.DB_DBNAME,
+//   dateStrings: true,
+// };
 const mysql = mysql2.createConnection(configobj);
 mysql.connect(function (err) {
   if (err == null) {
@@ -277,7 +277,21 @@ app.post("/fetch-one", function (req, resp) {
     [req.body.kuchMail],
     function (err, resultJsonAry) {
       // console.log(req.body);
-      resp.send(resultJsonAry);
+      if (resultJsonAry.length === 0) {
+         resp.send("Please create your profile first.");
+      }
+      else
+     { resp.send(resultJsonAry);}
     }
   );
 });
+app.post("/delete-user", function (req, resp) {
+  const mailid = req.body.Kuchmail;
+  mysql.query("delete from register3 where emailid=?", [mailid], function (err, result) {
+    if (err == null) {
+      if (result.affectedRows == 1) resp.send("Record Deleted Successfullyyy");
+      else resp.send("Invalid Id");
+    } else resp.send(err.message);
+  });
+});
+
